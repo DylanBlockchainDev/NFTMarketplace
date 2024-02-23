@@ -1,6 +1,7 @@
 # NFT-MarketPlace
 
 Welcome to the NFTMarketplace project! This platform is designed to provide a simple yet powerful marketplace for Non-Fungible Tokens (NFTs) where you can list, buy and sell NFTs using the Solidity programming language and the Foundry framework for the backend. The core of our project is the NFTMarketplace.sol smart contract, which is accompanied by comprehensive unit and fuzz testing files, as well as deployment scripts to ensure reliability and security.
+(not ment for acctual use).
 
 # Features
 
