@@ -51,19 +51,37 @@ function Navbar() {
   }
 
   useEffect(() => {
-    if (window.ethereum == undefined) return;
-    let val = window.ethereum.isConnected();
-    if (val) {
-      console.log("here");
-      getAddress();
-      toggleConnect(val);
-      updateButton();
-    }
+    if (!window.ethereum) return;
+
+    // Check if the user has any Ethereum accounts connected
+    window.ethereum
+      .request({ method: "eth_accounts" })
+      .then((accounts) => {
+        if (accounts.length > 0) {
+          // If there's at least one account connected, update the state
+          toggleConnect(true);
+          updateButton();
+          getAddress();
+        } else {
+          // If no accounts are connected, reset the state
+          toggleConnect(false);
+        }
+      })
+      .catch((error) => {
+        console.error("Error checking Ethereum accounts:", error);
+      });
 
     window.ethereum.on("accountsChanged", function (accounts) {
+      if (accounts.length > 0) {
+        toggleConnect(true);
+        updateButton();
+        getAddress();
+      } else {
+        toggleConnect(false);
+      }
       window.location.replace(location.pathname);
     });
-  });
+  }, []);
 
   return (
     <div className="">
